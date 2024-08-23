@@ -1,0 +1,6 @@
+SUCCESSFUL_BOOK_CREATE = "Successful book information add"
+SUCCESSFUL_BOOK_DELETE = "Successful book information delete"
+ERROR_GENRE_NOT_FOUND = "Genre not found"
+ERROR_BOOK_NOT_FOUND = "Book not found"
+ERROR_SOMETHING_WRONG = "Something was wrong"
+ERROR_AVAILABILITY_STATUS_NOT_FOUNT = "Availability status not found"
