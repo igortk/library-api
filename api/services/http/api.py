@@ -1,3 +1,4 @@
+import logging
 import http
 
 from flask import Flask, request, jsonify
@@ -11,11 +12,14 @@ from api.services.postgres.provider import PostgresProvider
 import json
 
 
+
+
 class BookRoutes:
     def __init__(self, app: Flask, pg_provider: PostgresProvider):
         self.app = app
         self.register_routes()
         self.pg_provider = pg_provider
+        self.logger = logging.getLogger(__name__)
 
     def register_routes(self):
         @self.app.get("/books")
@@ -58,7 +62,7 @@ class BookRoutes:
 
                 self.pg_provider.add_new(book)
             except Exception as e:
-                print(e)
+                self.logger.error(e)
             finally:
                 return jsonify(json.loads(json.dumps(response.__dict__))), status_code
 
@@ -103,6 +107,6 @@ class BookRoutes:
             except Exception as ex:
                 response.message = ERROR_SOMETHING_WRONG
                 status_code = http.HTTPStatus.INTERNAL_SERVER_ERROR
-                print(ex)  # TODO add/change to logger
+                self.logger.error(ex)
             finally:
                 return jsonify(json.loads(json.dumps(response.__dict__))), status_code
